@@ -11,6 +11,10 @@ export async function login(input: { email: string; password: string }): Promise
   return res.data.data;
 }
 
+export async function logout(): Promise<void> {
+  await http.post('/auth/logout');
+}
+
 export async function getMe(): Promise<User> {
   const res = await http.get<{ data: User }>('/auth/me');
   return res.data.data;

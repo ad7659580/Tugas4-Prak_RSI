@@ -56,7 +56,8 @@ http.interceptors.response.use(
   (res) => res,
   (error: AxiosError) => {
     const url = error.config?.url ?? '';
-    const isAuthForm = url.includes('/auth/login') || url.includes('/auth/register');
+    const isAuthForm =
+      url.includes('/auth/login') || url.includes('/auth/register') || url.includes('/auth/logout');
     if (error.response?.status === 401 && !isAuthForm) {
       tokenStore.clear();
       unauthorizedHandler?.();

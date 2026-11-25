@@ -90,3 +90,12 @@ Password semua akun: `Kantin12345`
 | Customer | `bagas@student.test` | hanya melihat |
 
 > Akun demo hanya untuk lingkungan belajar. Jangan commit `.env`; gunakan `.env.example`.
+
+
+## Tugas 5: Audit Log
+
+- `POST /auth/logout` (butuh token) mencatat `LOGOUT`; `LOGIN` dan `LOGOUT` menyimpan `role`, `ip_address`, `user_agent`, dan `result` di kolom `metadata`. Penulisan audit best-effort: bila gagal, login/logout tetap berhasil.
+- `GET /api/audit-logs` (admin): filter `action`, `targetTable`, `targetId`, `userId`, `from`, `to`, pagination `page`/`pageSize`.
+- `GET /api/audit-logs/:id` (admin): 404 bila tidak ada.
+- `backend/db/04-audit-hardening-tugas5.sql`: waktu UTC, index, trigger `TR_AUDIT_LOGS_AppendOnly`, dan `DENY UPDATE, DELETE` untuk login aplikasi. **Jalankan sebagai admin (sa) setelah 03-seed.**
+- Frontend: menu **Audit** (khusus admin) di `/admin/audit` dengan filter, pagination, dan modal detail.

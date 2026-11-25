@@ -8,8 +8,8 @@ export function Navbar() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const onLogout = () => {
-    logout();
+  const onLogout = async () => {
+    await logout();
     toast('success', 'Kamu sudah keluar.');
     navigate('/');
   };
@@ -21,6 +21,7 @@ export function Navbar() {
         <nav className="nav-links">
           <NavLink to="/" end>Warung</NavLink>
           {canCreateStall(user) && <NavLink to="/stalls/new">+ Tambah</NavLink>}
+          {user?.role === 'admin' && <NavLink to="/admin/audit">Audit</NavLink>}
           {user ? (
             <>
               <NavLink to="/account">

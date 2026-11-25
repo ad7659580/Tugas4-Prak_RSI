@@ -4,7 +4,7 @@ import { ErrorState, Loading } from '../components/States';
 import { roleLabel } from '../permissions';
 
 const hakAkses: Record<string, string[]> = {
-  admin: ['Melihat daftar & detail warung', 'Menambah warung', 'Mengubah semua warung', 'Menghapus warung'],
+  admin: ['Melihat daftar & detail warung', 'Menambah warung', 'Mengubah semua warung', 'Menghapus warung', 'Melihat riwayat audit'],
   owner: ['Melihat daftar & detail warung', 'Menambah warung', 'Mengubah warung milik sendiri'],
   customer: ['Melihat daftar & detail warung'],
 };
