@@ -8,7 +8,7 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = 'aprilia')
 BEGIN
     CREATE LOGIN aprilia
-        WITH PASSWORD = N'Aprilia_Tugas2026!',
+        WITH PASSWORD = N'GANTI_DENGAN_PASSWORD_KAMU',
              DEFAULT_DATABASE = review_kantin;
 END
 GO
