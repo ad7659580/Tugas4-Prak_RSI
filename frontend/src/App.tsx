@@ -8,6 +8,7 @@ import StallFormPage from './pages/StallFormPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AccountPage from './pages/AccountPage';
+import AuditLogPage from './pages/AuditLogPage';
 import { ForbiddenPage, NotFoundPage } from './pages/StatusPages';
 
 export default function App() {
@@ -29,6 +30,10 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/account" element={<RequireRole><AccountPage /></RequireRole>} />
+          <Route
+            path="/admin/audit"
+            element={<RequireRole roles={['admin']}><AuditLogPage /></RequireRole>}
+          />
           <Route path="/403" element={<ForbiddenPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

@@ -6,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import { getDb } from './db/index.ts';
 import { authRouter } from './routes/authRouter.ts';
 import { stallRouter } from './routes/stallRouter.ts';
+import { auditLogRouter } from './routes/auditLogRouter.ts';
 import { notFoundHandler } from './middlewares/notFound.ts';
 import { errorHandler } from './middlewares/errorHandler.ts';
 import { openApiDocument } from './docs/openapi.ts';
@@ -43,11 +44,17 @@ app.get('/health', async (_req, res) => {
 });
 
 // Dipasang di /api/v1/... (sesuai hands-on) dan di root /... (sesuai tabel soal Tugas 3)
+app.use('/api/auth', authRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/auth', authRouter);
 
+app.use('/api/stalls', stallRouter);
 app.use('/api/v1/stalls', stallRouter);
 app.use('/stalls', stallRouter);
+
+// Tugas 5: riwayat audit (admin-only), sesuai soal di /api/audit-logs
+app.use('/api/audit-logs', auditLogRouter);
+app.use('/api/v1/audit-logs', auditLogRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

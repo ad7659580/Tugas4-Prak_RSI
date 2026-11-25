@@ -10,11 +10,6 @@ const authController = new AuthController();
 authRouter.post('/register', validate(registerSchema, 'body'), authController.register);
 authRouter.post('/login', validate(loginSchema, 'body'), authController.login);
 authRouter.get('/me', authenticate, authController.getMe);
+authRouter.post('/logout', authenticate, authController.logout);
 
 export { authRouter };
-
-
-
-
-
-

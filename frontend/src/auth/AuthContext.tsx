@@ -10,7 +10,7 @@ interface AuthValue {
   /** true bila sesi berakhir karena 401 (token tidak valid/kedaluwarsa) */
   sessionExpired: boolean;
   login: (email: string, password: string) => Promise<User>;
-  logout: () => void;
+  logout: () => Promise<void>;
   clearExpired: () => void;
 }
 
@@ -57,11 +57,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return me;
   }, []);
 
-  const logout = useCallback(() => {
-    // Backend memakai JWT stateless (tanpa endpoint logout): cukup buang token di browser.
-    tokenStore.clear();
-    setUser(null);
-    setSessionExpired(false);
+  const logout = useCallback(async () => {
+    // Beri tahu backend lebih dulu agar LOGOUT tercatat di audit log (butuh token yang masih ada).
+    // Apa pun hasilnya (mis. token sudah kedaluwarsa), sesi di browser tetap diakhiri.
+    try {
+      if (tokenStore.get()) await authApi.logout();
+    } catch {
+      /* abaikan: logout lokal tetap dilakukan */
+    } finally {
+      tokenStore.clear();
+      setUser(null);
+      setSessionExpired(false);
+    }
   }, []);
 
   const clearExpired = useCallback(() => setSessionExpired(false), []);
